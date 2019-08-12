@@ -35,7 +35,7 @@ ClassMethod Test1() As %Status
 ClassMethod GetTasks() As %Status
 {
 	SET obj = {"tasks": [] }
-	SET rs = ##class(%SQL.Statement).%ExecDirect(, "select id, text, important, completed FROM GS.Task")
+	SET rs = ##class(%SQL.Statement).%ExecDirect(, "select id, text, important, completed FROM IrisVSCode.Task")
 	
 	WHILE rs.%Next() {
 		SET task = {
@@ -55,7 +55,7 @@ ClassMethod GetTasks() As %Status
 ClassMethod AddTask() As %Status
 {
 	SET obj = ##class(%DynamicObject).%FromJSON(%request.Content)
-	SET task =  ##class(GS.Task).%New()
+	SET task =  ##class(IrisVSCode.Task).%New()
 	
 	IF $length(obj.text) = 0 {
 		SET %response.Status = "400 Bad Request"
@@ -64,7 +64,7 @@ ClassMethod AddTask() As %Status
 	
 	SET task.text = obj.text
 	SET task.important = obj.important
-	SET task.completed = obj.completed
+	SET task.completed = 0
 	
 	DO task.%Save()
 	RETURN $$$OK
@@ -72,7 +72,7 @@ ClassMethod AddTask() As %Status
 
 ClassMethod GetTask(id As %Integer) As %Status
 {
-	SET task = ##class(GS.Task).%OpenId(id)
+	SET task = ##class(IrisVSCode.Task).%OpenId(id)
 	
 	IF '$IsObject(task) {
 		SET %response.Status = "400 Bad Request"
@@ -94,7 +94,7 @@ ClassMethod GetTask(id As %Integer) As %Status
 ClassMethod UpdateTask(id As %Integer) As %Status
 {
 	SET obj = ##class(%DynamicObject).%FromJSON(%request.Content)
-	SET task = ##class(GS.Task).%OpenId(id)
+	SET task = ##class(IrisVSCode.Task).%OpenId(id)
 	
 	IF '$IsObject(task) {
 		SET %response.Status = "400 Bad Request"
@@ -121,13 +121,13 @@ ClassMethod UpdateTask(id As %Integer) As %Status
 
 ClassMethod DeleteTask() As %Status
 {
-	IF '##class(GS.Task).%ExistsId(id) {
+	IF '##class(IrisVSCode.Task).%ExistsId(id) {
 		SET %response.Status = "400 Bad Request"
 		WRITE "Object is not available for requested id"
 		QUIT 1
 	}
 	
-	DO ##class(GS.Task).%DeleteId(id)
+	DO ##class(IrisVSCode.Task).%DeleteId(id)
 	QUIT 1
 }
 

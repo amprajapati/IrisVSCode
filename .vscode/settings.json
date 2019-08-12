@@ -3,5 +3,6 @@
   "objectscript.conn.port": 52773,
   "objectscript.conn.active": true,
   "objectscript.conn.label": "_system",
-  "objectscript.conn.password": "123456"
+  "objectscript.conn.password": "123456",
+  "objectscript.export.dontExportIfNoChanges": true
 }

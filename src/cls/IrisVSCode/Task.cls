@@ -1,11 +1,11 @@
-Class GS.Task Extends %Persistent [ Owner = { _system } ]
+Class IrisVSCode.Task Extends %Persistent
 {
 
 Property text As %Library.String(MAXLEN = 100) [ SqlColumnNumber = 2 ];
 
 Property important As %Library.Boolean [ SqlColumnNumber = 3 ];
 
-Property completed As %Library.DateTime [ SqlColumnNumber = 4 ];
+Property completed As %Library.Boolean [ SqlColumnNumber = 4 ];
 
 Storage Default
 {
@@ -23,11 +23,11 @@ Storage Default
 <Value>completed</Value>
 </Value>
 </Data>
-<DataLocation>^GS.TaskD</DataLocation>
+<DataLocation>^IrisVSCode.TaskD</DataLocation>
 <DefaultData>TaskDefaultData</DefaultData>
-<IdLocation>^GS.TaskD</IdLocation>
-<IndexLocation>^GS.TaskI</IndexLocation>
-<StreamLocation>^GS.TaskS</StreamLocation>
+<IdLocation>^IrisVSCode.TaskD</IdLocation>
+<IndexLocation>^IrisVSCode.TaskI</IndexLocation>
+<StreamLocation>^IrisVSCode.TaskS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }
 
